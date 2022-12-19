@@ -1,0 +1,44 @@
+{
+  "customers": [
+    {
+      "id": "cus_5h11qx9dh2ya4ni7",
+      "description": "Charlie Conway",
+      "email": "charlie.conway@basistheory.com",
+      "default_source": "card_4hhyft9srlbmq3sn5qr5vrjs",
+      "cards": [
+        {
+          "id": "card_4hhyft9srlbmq3sn5qr5vrjs",
+          "number": "378282246310005",
+          "name": "Charlie Conway",
+          "exp_month": 11,
+          "exp_year": 2025,
+          "address_line1": "10700 Academy Rd NE",
+          "address_city": "Albuquerque",
+          "address_state": "NY",
+          "address_zip": "87111",
+          "address_country": "US"
+        }
+      ]
+    },
+    {
+      "id": "cus_Fz9JqeMy9EPw3J16",
+      "description": "Adam Banks",
+      "email": "adam.banks@basistheory.com",
+      "default_source": "card_n5ejt1hlsrupz5qicqlo8d4f",
+      "cards": [
+        {
+          "id": "card_n5ejt1hlsrupz5qicqlo8d4f",
+          "number": "5555555555554444",
+          "name": "Adam Banks",
+          "exp_month": 7,
+          "exp_year": 2026,
+          "address_line1": "5935 Clarkston Rd",
+          "address_city": "Clarkston",
+          "address_state": "MI",
+          "address_zip": "48348",
+          "address_country": "US"
+        }
+      ]
+    }
+  ]
+}
