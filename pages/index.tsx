@@ -15,7 +15,7 @@ const Home: NextPage<Props> = ({ hasSession }) => (
       <ApplicationPanel
         icon={false}
         subtitle="Enter your Application Keys"
-        title="Setup"
+        title="Setup (test)"
       >
         <SetupForm hasSession={hasSession} />
       </ApplicationPanel>
