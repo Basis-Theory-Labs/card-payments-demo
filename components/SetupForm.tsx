@@ -53,16 +53,12 @@ const SetupForm = ({ hasSession }: { hasSession?: boolean }) => {
   const [publicApiKey, setPublicApiKey] = useState('');
   const [privateApiKey, setPrivateApiKey] = useState('');
   const [stripePublishableKey, setStripePublishableKey] = useState('');
-  const [stripeSecretKey, setStripeSecretKey] = useState('');
   const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
   const canSubmit =
-    publicApiKey.length &&
-    privateApiKey.length &&
-    stripePublishableKey.length &&
-    stripeSecretKey.length;
+    publicApiKey.length && privateApiKey.length && stripePublishableKey.length;
 
   const submit = async (event: FormEvent) => {
     event.preventDefault();
@@ -73,7 +69,6 @@ const SetupForm = ({ hasSession }: { hasSession?: boolean }) => {
         publicApiKey,
         privateApiKey,
         stripePublishableKey,
-        stripeSecretKey,
       });
       await router.push('/home');
     } finally {
@@ -132,12 +127,6 @@ const SetupForm = ({ hasSession }: { hasSession?: boolean }) => {
         name="stripePublishableKey"
         onChange={setStripePublishableKey}
         value={stripePublishableKey}
-      />
-      <PasswordField
-        label="Secret Key"
-        name="stripeSecretKey"
-        onChange={setStripeSecretKey}
-        value={stripeSecretKey}
       />
       <LoadingButton
         disabled={!canSubmit}

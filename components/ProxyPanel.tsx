@@ -55,7 +55,7 @@ export const ProxyPanel = ({
           sx={{ mt: 2 }}
           variant="contained"
         >
-          {'Submit'}
+          {'Send to Payment Processor'}
         </LoadingButton>
       </CardContent>
     </CollapsableCard>

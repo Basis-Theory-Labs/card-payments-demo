@@ -83,7 +83,7 @@ const createSession = (res: NextApiResponse, keys: Omit<Session, 'id'>) => {
 
 type GetServerSidePropsWithSession<R = Record<string, any>> = (
   context: GetServerSidePropsContext,
-  session: Omit<Session, 'privateApiKey' | 'stripeSecretKey'>
+  session: Omit<Session, 'privateApiKey'>
 ) => Promise<GetServerSidePropsResult<R>>;
 
 const getServerSidePropsWithSession =

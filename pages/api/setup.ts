@@ -11,8 +11,7 @@ const setupApi: NextApiHandler = async (req, res) => {
   if (
     !req.body?.publicApiKey ||
     !req.body?.privateApiKey ||
-    !req.body?.stripePublishableKey ||
-    !req.body?.stripeSecretKey
+    !req.body?.stripePublishableKey
   ) {
     throw new ApiError(400);
   }

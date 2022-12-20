@@ -3,7 +3,6 @@ interface Session {
   publicApiKey: string;
   privateApiKey: string;
   stripePublishableKey: string;
-  stripeSecretKey: string;
 }
 
 export type { Session };
