@@ -89,7 +89,7 @@ const SetupForm = ({ hasSession }: { hasSession?: boolean }) => {
           <>
             {'Click '}
             <Link
-              href="https://portal.basistheory.com/applications/create?name=Card+Payments+Frontend&permissions=token%3Apci%3Acreate&type=public"
+              href="https://portal.basistheory.com/applications/create?name=Card+Payments+Frontend&type=public&permissions=token%3Acreate"
               target="_blank"
             >
               {'here'}
@@ -107,7 +107,7 @@ const SetupForm = ({ hasSession }: { hasSession?: boolean }) => {
           <>
             {'Click '}
             <Link
-              href="https://portal.basistheory.com/applications/create?name=Card+Payments+Backend&permissions=token%3Apci%3Acreate&permissions=token%3Apci%3Ause%3Aproxy&permissions=token%3Apci%3Adelete"
+              href="https://portal.basistheory.com/applications/create?name=Card+Payments+Backend&permissions=token%3Acreate&permissions=token%3Aread&permissions=token%3Ause"
               target="_blank"
             >
               {'here'}
