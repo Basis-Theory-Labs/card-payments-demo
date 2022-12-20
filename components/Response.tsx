@@ -24,7 +24,7 @@ interface Props {
   onCollapse?: (collapsed: boolean) => unknown;
 }
 
-const specialHeaders = new Set(['BT-TRACE-ID', 'RC-AUTH-KEY']);
+const specialHeaders = new Set(['BT-TRACE-ID', 'PSP-AUTH-KEY']);
 
 const Response = ({ data, collapsed, onCollapse }: Props) => {
   const [tab, setTab] = useState('payload');
