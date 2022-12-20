@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import type { Token } from '@basis-theory/basis-theory-js/types/models';
+import { LoadingButton } from '@mui/lab';
 import { Button, CardContent } from '@mui/material';
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { CollapsableCard } from '@/components/CollapsableCard';
@@ -17,31 +18,46 @@ export const ProxyPanel = ({
   collapsed,
   onCollapse,
   onSubmit,
-}: Props) => (
-  <CollapsableCard
-    collapsed={collapsed}
-    onCollapse={onCollapse}
-    title="Basis Theory Token"
-  >
-    <CardContent>
-      {Boolean(paymentToken) && (
-        <SyntaxHighlighter
-          customStyle={{ minHeight: '100%' }}
-          language="json"
-          showLineNumbers
-          style={prismTheme}
+}: Props) => {
+  const [busy, setBusy] = useState(false);
+
+  const handleSubmit = async () => {
+    setBusy(true);
+
+    try {
+      await onSubmit?.();
+    } finally {
+      setBusy(false);
+    }
+  };
+
+  return (
+    <CollapsableCard
+      collapsed={collapsed}
+      onCollapse={onCollapse}
+      title="Basis Theory Token"
+    >
+      <CardContent>
+        {Boolean(paymentToken) && (
+          <SyntaxHighlighter
+            customStyle={{ minHeight: '100%' }}
+            language="json"
+            showLineNumbers
+            style={prismTheme}
+          >
+            {JSON.stringify(paymentToken, undefined, 2)}
+          </SyntaxHighlighter>
+        )}
+        <LoadingButton
+          color="primary"
+          loading={busy}
+          onClick={handleSubmit}
+          sx={{ mt: 2 }}
+          variant="contained"
         >
-          {JSON.stringify(paymentToken, undefined, 2)}
-        </SyntaxHighlighter>
-      )}
-      <Button
-        color="primary"
-        onClick={() => onSubmit?.()}
-        sx={{ mt: 2 }}
-        variant="contained"
-      >
-        {'Submit'}
-      </Button>
-    </CardContent>
-  </CollapsableCard>
-);
+          {'Submit'}
+        </LoadingButton>
+      </CardContent>
+    </CollapsableCard>
+  );
+};

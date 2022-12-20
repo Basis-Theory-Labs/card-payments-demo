@@ -4,6 +4,7 @@ import { ttl } from '@/components/utils';
 import { ApiError } from '@/server/ApiError';
 import { findCheckouts, updateCheckouts } from '@/server/db';
 import { apiWithSession } from '@/server/session';
+import { readStripeCards } from '@/server/utils';
 
 const migrateApi = apiWithSession(async (req, res, session) => {
   if (req.method !== 'POST') {
@@ -32,28 +33,32 @@ const migrateApi = apiWithSession(async (req, res, session) => {
   });
 
   if (checkouts.length) {
-    const payload = stripeData.customers.reduce((allTokens, customer) => {
-      const customerTokens = customer.cards.map(
-        ({ id: cardId, number, name, exp_month, exp_year, ...address }) => ({
-          id: cardId, // uses Stripe token ID for Basis Theory Token ID
-          type: 'card',
-          data: {
-            number,
-            expiration_month: exp_month,
-            expiration_year: exp_year,
-          },
-          metadata: {
-            stripe_customer: customer.id,
-            stripe_token: cardId,
-            ...address,
-          },
-          expires_at: ttl(),
-          deduplicate_token: true,
-        })
-      );
-
-      return [...allTokens, ...customerTokens];
-    }, [] as any[]);
+    const payload = readStripeCards().map(
+      ({
+        id: cardId,
+        number,
+        name,
+        exp_month,
+        exp_year,
+        customer,
+        ...address
+      }) => ({
+        id: cardId, // uses Stripe token ID for Basis Theory Token ID
+        type: 'card',
+        data: {
+          number,
+          expiration_month: exp_month,
+          expiration_year: exp_year,
+        },
+        metadata: {
+          stripe_customer: customer.id,
+          stripe_token: cardId,
+          ...address,
+        },
+        expires_at: ttl(),
+        deduplicate_token: true,
+      })
+    );
 
     const tokens = await bt.tokenize(payload);
 

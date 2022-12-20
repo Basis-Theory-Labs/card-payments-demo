@@ -107,7 +107,7 @@ const SetupForm = ({ hasSession }: { hasSession?: boolean }) => {
           <>
             {'Click '}
             <Link
-              href="https://portal.basistheory.com/applications/create?name=Card+Payments+Backend&permissions=token%3Acreate&permissions=token%3Aread&permissions=token%3Ause"
+              href="https://portal.basistheory.com/applications/create?name=Card+Payments+Backend&permissions=token%3Acreate&permissions=token%3Aread&permissions=token%3Ause&permissions=token%3Adelete"
               target="_blank"
             >
               {'here'}

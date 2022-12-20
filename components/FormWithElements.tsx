@@ -2,7 +2,16 @@ import React, { FormEvent, useRef, useState } from 'react';
 import type { CardElement as ICardElement } from '@basis-theory/basis-theory-js/types/elements';
 import { useBasisTheory, CardElement } from '@basis-theory/basis-theory-react';
 import { LoadingButton } from '@mui/lab';
-import { Paper } from '@mui/material';
+import {
+  Box,
+  Divider,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  Paper,
+  Radio,
+  RadioGroup,
+} from '@mui/material';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { Cart } from '@/components/Cart';
@@ -13,6 +22,7 @@ export const FormWithElements = () => {
   const [cardComplete, setCardComplete] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const { cart, refresh } = useCart();
+  const [aliasType, setAliasType] = useState('stripe');
 
   const { bt } = useBasisTheory();
   const cardElementRef = useRef<ICardElement>(null);
@@ -31,7 +41,7 @@ export const FormWithElements = () => {
 
     try {
       const token = await bt.tokens.create({
-        id: generateCardId(),
+        id: generateCardId(aliasType),
         type: 'card',
         data: cardElement,
         expiresAt: ttl(),
@@ -69,6 +79,7 @@ export const FormWithElements = () => {
       <Paper
         sx={{
           mt: 2,
+          mb: 4,
           py: 1,
           px: 1,
         }}
@@ -82,6 +93,46 @@ export const FormWithElements = () => {
           ref={cardElementRef}
         />
       </Paper>
+
+      <Divider />
+
+      <Box
+        sx={{
+          mt: 2,
+          mb: 2,
+        }}
+      >
+        <FormControl>
+          <FormLabel>{'Aliasing Format'}</FormLabel>
+          <RadioGroup
+            onChange={(event) => setAliasType(event.target.value)}
+            row
+            value={aliasType}
+          >
+            <FormControlLabel control={<Radio />} label="None" value="none" />
+            <FormControlLabel
+              control={<Radio />}
+              label="Stripe (custom)"
+              value="stripe"
+            />
+            <FormControlLabel
+              control={<Radio />}
+              label="Preserve last 4"
+              value="last4"
+            />
+            <FormControlLabel
+              control={<Radio />}
+              label="Preserve BIN"
+              value="bin"
+            />
+            <FormControlLabel
+              control={<Radio />}
+              label="Preserve Both"
+              value="both"
+            />
+          </RadioGroup>
+        </FormControl>
+      </Box>
 
       <LoadingButton
         color="primary"

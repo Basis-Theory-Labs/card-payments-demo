@@ -17,12 +17,33 @@ const ttl = (): string =>
         6 // hours
   ).toISOString();
 
-const generateCardId = () =>
-  `card_${chance.string({
-    length: 24,
-    alpha: true,
-    numeric: true,
-  })}`;
+const generateCardId = (format: string) => {
+  if (format === 'none') {
+    return undefined;
+  }
+
+  if (format === 'stripe') {
+    return `card_${chance.string({
+      length: 24,
+      alpha: true,
+      numeric: true,
+    })}`;
+  }
+
+  if (format === 'last4') {
+    return `{{ data.number | alias_preserve_format: 0, 4 }}`;
+  }
+
+  if (format === 'bin') {
+    return `{{ data.number | alias_preserve_format: 6 }}`;
+  }
+
+  if (format === 'both') {
+    return `{{ data.number | alias_preserve_format: 6, 4 }}`;
+  }
+
+  return format;
+};
 
 const policies = ['Premium', 'Standard', 'Basic'];
 
