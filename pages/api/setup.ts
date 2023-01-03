@@ -1,9 +1,8 @@
 import type { NextApiHandler } from 'next';
 import { ApiError } from '@/server/ApiError';
 import { replaceSession } from '@/server/session';
-import { cleanupMigrationTokens } from '@/server/utils';
 
-const setupApi: NextApiHandler = async (req, res) => {
+const setupApi: NextApiHandler = (req, res) => {
   if (req.method !== 'POST') {
     throw new ApiError(404);
   }
@@ -17,8 +16,6 @@ const setupApi: NextApiHandler = async (req, res) => {
   }
 
   replaceSession(req, res);
-
-  await cleanupMigrationTokens(req.body.privateApiKey);
 
   res.status(200).end();
 };

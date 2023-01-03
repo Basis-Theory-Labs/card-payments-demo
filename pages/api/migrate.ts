@@ -56,13 +56,6 @@ const migrateApi = apiWithSession(async (req, res, session) => {
 
     try {
       await bt.tokenize(payload);
-
-      updateCheckouts(
-        checkouts.map((checkout) => ({
-          ...checkout,
-          tokenized: true,
-        }))
-      );
     } catch (error) {
       if (!(error instanceof BasisTheoryApiError) || error.status !== 409) {
         // tokens may have been migrated before in a different session
@@ -70,6 +63,13 @@ const migrateApi = apiWithSession(async (req, res, session) => {
       }
     }
   }
+
+  updateCheckouts(
+    checkouts.map((checkout) => ({
+      ...checkout,
+      tokenized: true,
+    }))
+  );
 
   res.status(200).end();
 });

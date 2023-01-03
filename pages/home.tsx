@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { Grid, useTheme } from '@mui/material';
+import { Grid } from '@mui/material';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
 import type { NextPage } from 'next';
