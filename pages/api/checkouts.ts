@@ -3,20 +3,6 @@ import { findCheckouts, insertCheckout } from '@/server/db';
 import { apiWithSession } from '@/server/session';
 import { Checkout, Session } from '@/types';
 
-// /**
-//  * Verifies if the payment token is already
-//  * present in the database
-//  */
-// const isDuplicated = (tenant: string, paymentToken?: string): boolean =>
-//   Boolean(
-//     paymentToken &&
-//       findCheckouts(tenant, {
-//         paymentToken: {
-//           $eq: paymentToken,
-//         },
-//       }).length
-//   );
-
 const createCheckout = (
   session: Session,
   {
@@ -31,10 +17,6 @@ const createCheckout = (
     tokenized,
   }: Omit<Checkout, 'tenant'>
 ) =>
-  // if (tokenized && isDuplicated(session.id, paymentToken)) {
-  //   throw new ApiError(409, `Duplicate Card. Fingerprint: ${paymentFingerprint}`);
-  // }
-
   insertCheckout(session.id, {
     name,
     paymentToken,

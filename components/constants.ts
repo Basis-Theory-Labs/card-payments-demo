@@ -7,41 +7,4 @@ const INTER_FONT =
 const OUTFIT_FONT =
   'https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap';
 
-const PHONE_NUMBER_MASK = [
-  '(',
-  /\d/u,
-  /\d/u,
-  /\d/u,
-  ')',
-  ' ',
-  /\d/u,
-  /\d/u,
-  /\d/u,
-  '-',
-  /\d/u,
-  /\d/u,
-  /\d/u,
-  /\d/u,
-];
-
-const SSN_MASK = [
-  /\d/u,
-  /\d/u,
-  /\d/u,
-  '-',
-  /\d/u,
-  /\d/u,
-  '-',
-  /\d/u,
-  /\d/u,
-  /\d/u,
-  /\d/u,
-];
-
-export {
-  SOURCE_CODE_PRO_FONT,
-  INTER_FONT,
-  OUTFIT_FONT,
-  PHONE_NUMBER_MASK,
-  SSN_MASK,
-};
+export { SOURCE_CODE_PRO_FONT, INTER_FONT, OUTFIT_FONT };

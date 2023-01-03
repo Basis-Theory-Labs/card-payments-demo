@@ -21,9 +21,10 @@ const Proxy = () => {
     setTokenCollapsed(false);
   };
 
-  const handleProxySubmit = async () => {
+  const handleProxySubmit = async (psp: string) => {
     const { data } = await axios.post<EchoResponse>('/api/proxy', {
       cardToken: paymentToken?.id,
+      psp,
     });
 
     setProxyResponse(data);

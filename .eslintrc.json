@@ -8,6 +8,7 @@
       {
         "allow": [
           "expires_at",
+          "expiration_date",
           "deduplicate_token",
           "search_indexes",
           "expiration_month",
