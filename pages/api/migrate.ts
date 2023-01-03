@@ -1,5 +1,5 @@
 import { BasisTheory } from '@basis-theory/basis-theory-js';
-import stripeData from 'stripe_migration_data.json';
+import { BasisTheoryApiError } from '@basis-theory/basis-theory-js/common';
 import { ttl } from '@/components/utils';
 import { ApiError } from '@/server/ApiError';
 import { findCheckouts, updateCheckouts } from '@/server/db';
@@ -14,18 +14,12 @@ const migrateApi = apiWithSession(async (req, res, session) => {
   // initializes SDK with the API key
   const bt = await new BasisTheory().init(session.privateApiKey);
 
-  // gets all Stripe "card on file" tokens
-  const stripeCardTokens = stripeData.customers.reduce(
-    (cardTokens, customer) => [
-      ...cardTokens,
-      ...customer.cards.map((card) => card.id),
-    ],
-    [] as string[]
-  );
+  // gets all Stripe "card-on-file" tokens
+  const stripeCardTokens = readStripeCards();
 
   const checkouts = findCheckouts(session.id, {
     paymentToken: {
-      $in: stripeCardTokens,
+      $in: stripeCardTokens.map(({ id }) => id),
     },
     tokenized: {
       $ne: true,
@@ -33,7 +27,7 @@ const migrateApi = apiWithSession(async (req, res, session) => {
   });
 
   if (checkouts.length) {
-    const payload = readStripeCards().map(
+    const payload = stripeCardTokens.map(
       ({
         id: cardId,
         number,
@@ -60,15 +54,21 @@ const migrateApi = apiWithSession(async (req, res, session) => {
       })
     );
 
-    const tokens = await bt.tokenize(payload);
+    try {
+      await bt.tokenize(payload);
 
-    updateCheckouts(
-      checkouts.map((checkout, index) => ({
-        ...checkout,
-        paymentToken: (tokens as any)[index].id,
-        tokenized: true,
-      }))
-    );
+      updateCheckouts(
+        checkouts.map((checkout) => ({
+          ...checkout,
+          tokenized: true,
+        }))
+      );
+    } catch (error) {
+      if (!(error instanceof BasisTheoryApiError) || error.status !== 409) {
+        // tokens may have been migrated before in a different session
+        throw error;
+      }
+    }
   }
 
   res.status(200).end();

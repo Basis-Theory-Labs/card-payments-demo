@@ -11,10 +11,12 @@ import {
   Paper,
   Radio,
   RadioGroup,
+  useTheme,
 } from '@mui/material';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { Cart } from '@/components/Cart';
+import { INTER_FONT } from '@/components/constants';
 import { generateCardId, ttl, useCart } from './utils';
 
 export const FormWithElements = () => {
@@ -25,6 +27,7 @@ export const FormWithElements = () => {
   const [aliasType, setAliasType] = useState('stripe');
 
   const { bt } = useBasisTheory();
+  const theme = useTheme();
   const cardElementRef = useRef<ICardElement>(null);
 
   const canSubmit = cardComplete;
@@ -91,6 +94,17 @@ export const FormWithElements = () => {
             setCardComplete(e.complete);
           }}
           ref={cardElementRef}
+          style={{
+            fonts: [INTER_FONT],
+            base: {
+              color: theme.palette.text.primary,
+              fontFamily: theme.typography.fontFamily,
+              padding: 0,
+              '::placeholder': {
+                color: theme.palette.text.disabled,
+              },
+            },
+          }}
         />
       </Paper>
 

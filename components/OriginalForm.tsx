@@ -1,6 +1,6 @@
 import React, { FormEvent, useState } from 'react';
 import { LoadingButton } from '@mui/lab';
-import { Paper } from '@mui/material';
+import { Paper, useTheme } from '@mui/material';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
@@ -15,6 +15,7 @@ export const OriginalForm = () => {
 
   const elements = useElements();
   const stripe = useStripe();
+  const theme = useTheme();
 
   const canSubmit = cardComplete;
 
@@ -75,6 +76,18 @@ export const OriginalForm = () => {
           id="card-element"
           onChange={(e) => {
             setCardComplete(e.complete);
+          }}
+          options={{
+            style: {
+              base: {
+                color: theme.palette.text.primary,
+                fontFamily: theme.typography.fontFamily,
+                fontSize: '16px',
+                '::placeholder': {
+                  color: theme.palette.text.disabled,
+                },
+              },
+            },
           }}
         />
       </Paper>
