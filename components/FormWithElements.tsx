@@ -24,7 +24,7 @@ export const FormWithElements = () => {
   const [cardComplete, setCardComplete] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const { cart, refresh } = useCart();
-  const [aliasType, setAliasType] = useState('stripe');
+  const [aliasType, setAliasType] = useState('none');
 
   const { bt } = useBasisTheory();
   const theme = useTheme();
