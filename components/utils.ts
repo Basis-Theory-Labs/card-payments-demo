@@ -17,12 +17,12 @@ const ttl = (): string =>
         6 // hours
   ).toISOString();
 
-const generateCardId = (format: string) => {
+const generateCardId = (format: AliasType) => {
   if (format === 'none') {
     return undefined;
   }
 
-  if (format === 'stripe') {
+  if (format === 'custom') {
     return `card_${chance.string({
       length: 24,
       alpha: true,
@@ -30,16 +30,16 @@ const generateCardId = (format: string) => {
     })}`;
   }
 
-  if (format === 'last4') {
-    return `{{ data.number | alias_preserve_format: 0, 4 }}`;
+  if (format === 'bin') {
+    return `{{ data.number | alias_card: 'true' }}`;
   }
 
-  if (format === 'bin') {
-    return `{{ data.number | alias_preserve_format: 6 }}`;
+  if (format === 'last4') {
+    return `{{ data.number | alias_card: 'false', 'true' }}`;
   }
 
   if (format === 'both') {
-    return `{{ data.number | alias_preserve_format: 6, 4 }}`;
+    return `{{ data.number | alias_card: 'true', 'true' }}`;
   }
 
   return format;
@@ -90,5 +90,7 @@ const useCart = (): {
     refresh,
   };
 };
+
+export type AliasType = 'none' | 'custom' | 'last4' | 'bin' | 'both';
 
 export { ttl, useCart, generateCardId };

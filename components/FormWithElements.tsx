@@ -1,30 +1,23 @@
 import React, { FormEvent, useRef, useState } from 'react';
 import type { CardElement as ICardElement } from '@basis-theory/basis-theory-js/types/elements';
-import { useBasisTheory, CardElement } from '@basis-theory/basis-theory-react';
+import { CardElement, useBasisTheory } from '@basis-theory/basis-theory-react';
 import { LoadingButton } from '@mui/lab';
-import {
-  Box,
-  Divider,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
-  Paper,
-  Radio,
-  RadioGroup,
-  useTheme,
-} from '@mui/material';
+import { Paper, useTheme } from '@mui/material';
 import axios from 'axios';
 import { useSnackbar } from 'notistack';
 import { Cart } from '@/components/Cart';
 import { INTER_FONT } from '@/components/constants';
 import { generateCardId, ttl, useCart } from './utils';
 
-export const FormWithElements = () => {
+interface Props {
+  aliasType: 'none' | 'custom' | 'last4' | 'bin' | 'both';
+}
+
+export const FormWithElements = ({ aliasType }: Props) => {
   const [loading, setLoading] = useState(false);
   const [cardComplete, setCardComplete] = useState(false);
   const { enqueueSnackbar } = useSnackbar();
   const { cart, refresh } = useCart();
-  const [aliasType, setAliasType] = useState('none');
 
   const { bt } = useBasisTheory();
   const theme = useTheme();
@@ -82,7 +75,7 @@ export const FormWithElements = () => {
       <Paper
         sx={{
           mt: 2,
-          mb: 4,
+          mb: 2,
           py: 1,
           px: 1,
         }}
@@ -108,51 +101,10 @@ export const FormWithElements = () => {
         />
       </Paper>
 
-      <Divider />
-
-      <Box
-        sx={{
-          mt: 2,
-          mb: 2,
-        }}
-      >
-        <FormControl>
-          <FormLabel>{'Aliasing Format'}</FormLabel>
-          <RadioGroup
-            onChange={(event) => setAliasType(event.target.value)}
-            row
-            value={aliasType}
-          >
-            <FormControlLabel control={<Radio />} label="None" value="none" />
-            <FormControlLabel
-              control={<Radio />}
-              label="Stripe (custom)"
-              value="stripe"
-            />
-            <FormControlLabel
-              control={<Radio />}
-              label="Preserve last 4"
-              value="last4"
-            />
-            <FormControlLabel
-              control={<Radio />}
-              label="Preserve BIN"
-              value="bin"
-            />
-            <FormControlLabel
-              control={<Radio />}
-              label="Preserve Both"
-              value="both"
-            />
-          </RadioGroup>
-        </FormControl>
-      </Box>
-
       <LoadingButton
         color="primary"
         disabled={!canSubmit}
         loading={loading}
-        sx={{ mt: 2 }}
         type="submit"
         variant="contained"
       >
