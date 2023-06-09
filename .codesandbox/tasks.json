@@ -9,10 +9,9 @@
     "dev": {
       "name": "Run in Dev mode",
       "command": "yarn dev",
-      "runAtStart": "true",
+      "runAtStart": true,
       "preview": {
-        "port": 3000,
-        "prLink": "devtool"
+        "port": 3000
       }
     },
     "prod": {
