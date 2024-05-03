@@ -24,14 +24,14 @@ const Proxy = () => {
   };
 
   const handleProxySubmit = async (psp: string) => {
-    const response = await axios.post('/api/payments', {
+    const response = await axios.post('/api/orchestration', {
       cardToken: paymentToken?.id,
       amount,
       psp,
     });
 
     setProxyResponse({
-      url: 'https://api.basistheory.com/payments/transactions',
+      url: 'https://api.basistheory.com/orchestration/transactions',
       method: 'POST',
       json: response.data,
       headers: response.headers,

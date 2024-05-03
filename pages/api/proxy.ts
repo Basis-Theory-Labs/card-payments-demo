@@ -60,7 +60,8 @@ const paymentProcessorApi = apiWithSession(async (req, res, session) => {
     payload = adyenPayload(cardToken);
   } else if (psp === 'tabapay') {
     payload = tabapayPayload(cardToken);
-  } else if (psp === 'stripe') {
+  } else {
+    // stripe is the default
     payload = stripePayload(cardToken);
   }
 

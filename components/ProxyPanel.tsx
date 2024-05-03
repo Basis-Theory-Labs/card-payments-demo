@@ -27,7 +27,7 @@ export const ProxyPanel = ({
   onSubmit,
 }: Props) => {
   const [busy, setBusy] = useState(false);
-  const [psp, setPsp] = useState('adyen');
+  const [psp, setPsp] = useState('auto');
 
   const handleSubmit = async () => {
     setBusy(true);
@@ -66,6 +66,7 @@ export const ProxyPanel = ({
                   value={psp}
                   variant="standard"
                 >
+                  <MenuItem value="auto">{'Automatic'}</MenuItem>
                   <MenuItem value="stripe">{'Stripe'}</MenuItem>
                   <MenuItem value="adyen">{'Adyen'}</MenuItem>
                   <MenuItem value="jpmc">{'JPMC'}</MenuItem>

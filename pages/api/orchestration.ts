@@ -3,7 +3,7 @@ import { ApiError } from '@/server/ApiError';
 import { getBearerToken } from '@/server/payments';
 import { apiWithSession } from '@/server/session';
 
-const PAYMENTS_BASE_URL = 'https://api.basistheory.com/proxy';
+const PAYMENTS_BASE_URL = 'https://payments.basistheory.solutions';
 
 const PROCESSOR_MAP: { [key: string]: string } = {
   adyen: '9387e2bd-3023-4749-b82d-7f942e0a95b8',
@@ -24,13 +24,17 @@ const paymentProcessorApi = apiWithSession(async (req, res, session) => {
 
   const bearer = await getBearerToken();
 
+  const specificPSP =
+    psp !== 'auto'
+      ? {
+          payment_service_id: PROCESSOR_MAP[psp],
+        }
+      : {};
+
   try {
     const { data } = await axios.request({
       baseURL: PAYMENTS_BASE_URL,
       url: 'transactions',
-      params: {
-        'bt-proxy-key': 'key_test_us_proxy_PAPMfdnJFYcBiTyeQxmUAU',
-      },
       method: 'POST',
       headers: {
         Authorization: `Bearer ${bearer}`,
@@ -39,7 +43,7 @@ const paymentProcessorApi = apiWithSession(async (req, res, session) => {
         amount: amount * 100, // cents
         currency: 'USD',
         card: `{{ ${cardToken} }}`,
-        payment_service_id: PROCESSOR_MAP[psp],
+        ...specificPSP,
       },
     });
 

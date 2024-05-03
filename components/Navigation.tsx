@@ -36,8 +36,8 @@ const routes: Route[] = [
     title: 'Migration',
   },
   {
-    route: '/payments',
-    title: 'Payments',
+    route: '/orchestration',
+    title: 'Orchestration',
   },
   {
     route: '/proxy',
