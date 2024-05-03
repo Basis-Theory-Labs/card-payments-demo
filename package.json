@@ -10,10 +10,11 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@basis-theory/basis-theory-js": "^1.59.0",
-    "@basis-theory/basis-theory-react": "^1.7.0",
+    "@basis-theory/basis-theory-js": "^4.3.0",
+    "@basis-theory/basis-theory-react": "^1.18.1",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+    "@gr4vy/node": "^0.63.1",
     "@mui/icons-material": "^5.8.4",
     "@mui/lab": "^5.0.0-alpha.94",
     "@mui/material": "^5.9.2",

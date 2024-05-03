@@ -66,10 +66,10 @@ export const ProxyPanel = ({
                   value={psp}
                   variant="standard"
                 >
+                  <MenuItem value="stripe">{'Stripe'}</MenuItem>
                   <MenuItem value="adyen">{'Adyen'}</MenuItem>
                   <MenuItem value="jpmc">{'JPMC'}</MenuItem>
                   <MenuItem value="tabapay">{'TabaPay'}</MenuItem>
-                  <MenuItem value="stripe">{'Stripe'}</MenuItem>
                 </Select>
               </FormControl>
             </Box>

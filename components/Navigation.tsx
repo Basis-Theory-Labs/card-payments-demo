@@ -36,6 +36,10 @@ const routes: Route[] = [
     title: 'Migration',
   },
   {
+    route: '/payments',
+    title: 'Payments',
+  },
+  {
     route: '/proxy',
     title: 'Proxy',
   },

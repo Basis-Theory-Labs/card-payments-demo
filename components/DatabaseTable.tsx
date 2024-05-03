@@ -20,7 +20,7 @@ import { TableHeadPaper } from './TableHeadPaper';
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 interface Props {
-  onPaymentSelect?: (paymentToken: string) => unknown;
+  onPaymentSelect?: (paymentToken: string, amount: number) => unknown;
 }
 
 export const DatabaseTable = ({ onPaymentSelect }: Props) => {
@@ -73,7 +73,13 @@ export const DatabaseTable = ({ onPaymentSelect }: Props) => {
                       onPaymentSelect ? (
                         <Link
                           component="button"
-                          onClick={() => onPaymentSelect(checkout.paymentToken)}
+                          onClick={() =>
+                            onPaymentSelect(
+                              checkout.paymentToken,
+                              (checkout.autoPolicyValue || 0) +
+                                (checkout.homePolicyValue || 0)
+                            )
+                          }
                           underline="hover"
                         >
                           <Typography variant="code">

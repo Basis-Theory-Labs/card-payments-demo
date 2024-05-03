@@ -27,7 +27,7 @@ interface Props {
 const specialHeaders = new Set(['BT-TRACE-ID', 'PSP-AUTH-KEY']);
 
 const Response = ({ data, collapsed, onCollapse }: Props) => {
-  const [tab, setTab] = useState('payload');
+  const [tab, setTab] = useState('body');
 
   return (
     <CollapsableCard
@@ -70,7 +70,7 @@ const Response = ({ data, collapsed, onCollapse }: Props) => {
           <TabContext value={tab}>
             <TabList onChange={(_, value) => setTab(value)} sx={{ mb: 2 }}>
               <Tab label="Headers" value="headers" />
-              <Tab label="Payload" value="payload" />
+              <Tab label="Body" value="body" />
             </TabList>
             <TabPanel value="headers">
               {data.headers && (
@@ -117,7 +117,7 @@ const Response = ({ data, collapsed, onCollapse }: Props) => {
                 </TableContainer>
               )}
             </TabPanel>
-            <TabPanel value="payload">
+            <TabPanel value="body">
               {Boolean(data.json) && (
                 <SyntaxHighlighter
                   customStyle={{ minHeight: '100%' }}
