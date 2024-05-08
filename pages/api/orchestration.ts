@@ -1,13 +1,12 @@
 import axios from 'axios';
 import { ApiError } from '@/server/ApiError';
-import { getBearerToken } from '@/server/payments';
 import { apiWithSession } from '@/server/session';
 
-const PAYMENTS_BASE_URL = 'https://payments.basistheory.solutions';
+const PAYMENTS_BASE_URL = 'https://dev.basistheory.solutions/orchestration';
 
 const PROCESSOR_MAP: { [key: string]: string } = {
   adyen: '9387e2bd-3023-4749-b82d-7f942e0a95b8',
-  stripe: 'f4c57207-ebd9-4909-af79-350d3d45392a',
+  stripe: 'cef20687-da38-4504-af53-f722db7e3cc1',
 };
 
 const paymentProcessorApi = apiWithSession(async (req, res, session) => {
@@ -22,12 +21,10 @@ const paymentProcessorApi = apiWithSession(async (req, res, session) => {
     throw new ApiError(404);
   }
 
-  const bearer = await getBearerToken();
-
   const specificPSP =
     psp !== 'auto'
       ? {
-          payment_service_id: PROCESSOR_MAP[psp],
+          connection_id: PROCESSOR_MAP[psp],
         }
       : {};
 
@@ -37,12 +34,12 @@ const paymentProcessorApi = apiWithSession(async (req, res, session) => {
       url: 'transactions',
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${bearer}`,
+        'BT-API-KEY': session.privateApiKey,
       },
       data: {
         amount: amount * 100, // cents
         currency: 'USD',
-        card: `{{ ${cardToken} }}`,
+        token: cardToken,
         ...specificPSP,
       },
     });

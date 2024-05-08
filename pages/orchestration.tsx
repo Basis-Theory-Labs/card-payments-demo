@@ -31,7 +31,7 @@ const Proxy = () => {
     });
 
     setProxyResponse({
-      url: 'https://api.basistheory.com/orchestration/transactions',
+      url: 'https://dev.basistheory.solutions/orchestration/transactions',
       method: 'POST',
       json: response.data,
       headers: response.headers,
