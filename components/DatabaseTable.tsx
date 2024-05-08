@@ -16,8 +16,7 @@ import {
 import useSWR from 'swr';
 import type { Checkout } from '@/types';
 import { TableHeadPaper } from './TableHeadPaper';
-
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+import { fetcher } from './utils';
 
 interface Props {
   onPaymentSelect?: (paymentToken: string, amount: number) => unknown;

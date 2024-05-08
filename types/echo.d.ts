@@ -5,4 +5,9 @@ interface EchoResponse<T = unknown> {
   method: string;
 }
 
-export type { EchoResponse };
+interface Connection {
+  id: string;
+  name: string;
+}
+
+export type { EchoResponse, Connection };

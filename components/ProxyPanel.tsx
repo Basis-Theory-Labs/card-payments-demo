@@ -12,22 +12,32 @@ import {
 import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { CollapsableCard } from '@/components/CollapsableCard';
 import { prismTheme } from '@/components/prismTheme';
+import type { Connection } from '@/types';
 
 interface Props {
   paymentToken?: Token;
   collapsed?: boolean;
   onCollapse?: (collapsed: boolean) => unknown;
   onSubmit?: (psp: string) => unknown;
+  connections?: Connection[];
 }
+
+const defaultConnections: Connection[] = [
+  { id: 'stripe', name: 'Stripe' },
+  { id: 'adyen', name: 'Adyen' },
+  { id: 'jpmc', name: 'JPMC' },
+  { id: 'tabapay', name: 'TabaPay' },
+];
 
 export const ProxyPanel = ({
   paymentToken,
   collapsed,
   onCollapse,
   onSubmit,
+  connections = defaultConnections,
 }: Props) => {
   const [busy, setBusy] = useState(false);
-  const [psp, setPsp] = useState('auto');
+  const [psp, setPsp] = useState(connections[0].id);
 
   const handleSubmit = async () => {
     setBusy(true);
@@ -66,11 +76,11 @@ export const ProxyPanel = ({
                   value={psp}
                   variant="standard"
                 >
-                  <MenuItem value="auto">{'Automatic'}</MenuItem>
-                  <MenuItem value="stripe">{'Stripe'}</MenuItem>
-                  <MenuItem value="adyen">{'Adyen'}</MenuItem>
-                  <MenuItem value="jpmc">{'JPMC'}</MenuItem>
-                  <MenuItem value="tabapay">{'TabaPay'}</MenuItem>
+                  {connections.map((connection) => (
+                    <MenuItem key={connection.id} value={connection.id}>
+                      {connection.name}
+                    </MenuItem>
+                  ))}
                 </Select>
               </FormControl>
             </Box>

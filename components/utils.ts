@@ -93,4 +93,6 @@ const useCart = (): {
 
 export type AliasType = 'none' | 'custom' | 'last4' | 'bin' | 'both';
 
-export { ttl, useCart, generateCardId };
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
+
+export { ttl, useCart, generateCardId, fetcher };

@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import type { Token } from '@basis-theory/basis-theory-js/types/models';
 import { Grid } from '@mui/material';
 import axios from 'axios';
+import useSWR from 'swr';
 import { DatabaseTable } from '@/components/DatabaseTable';
 import { ProxyPanel } from '@/components/ProxyPanel';
 import { Response } from '@/components/Response';
+import { fetcher } from '@/components/utils';
 import { getServerSidePropsWithSession } from '@/server/session';
-import type { EchoResponse } from '@/types';
+import type { EchoResponse, Connection } from '@/types';
 
 const Proxy = () => {
   const [proxyResponse, setProxyResponse] = useState<EchoResponse>();
@@ -14,6 +16,14 @@ const Proxy = () => {
   const [tokenCollapsed, setTokenCollapsed] = useState<boolean>(true);
   const [paymentToken, setPaymentToken] = useState<Token>();
   const [amount, setAmount] = useState<number>();
+
+  const { data: connections } = useSWR<Connection[]>(
+    '/api/connections',
+    fetcher,
+    {
+      refreshInterval: 10000,
+    }
+  );
 
   const handlePaymentSelect = async (tokenId: string, amount: number) => {
     const response = await axios.get<Token>(`/api/tokens/${tokenId}`);
@@ -48,6 +58,7 @@ const Proxy = () => {
       <Grid item>
         <ProxyPanel
           collapsed={tokenCollapsed}
+          connections={connections}
           onCollapse={setTokenCollapsed}
           onSubmit={handleProxySubmit}
           paymentToken={paymentToken}
