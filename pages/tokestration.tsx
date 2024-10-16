@@ -1,51 +1,26 @@
 import React, { useState } from 'react';
 import type { Token } from '@basis-theory/basis-theory-js/types/models';
+import { UniversalToken } from '@basis-theory/tokestration-node-sdk-poc/dist/interfaces/UniversalToken';
 import { Grid } from '@mui/material';
 import axios from 'axios';
 import { DatabaseTable } from '@/components/DatabaseTable';
-import { ProxyPanel } from '@/components/ProxyPanel';
 import { Response } from '@/components/Response';
+import { TokestrationPanel } from '@/components/TokestrationPanel';
 import { getServerSidePropsWithSession } from '@/server/session';
 import type { Checkout, EchoResponse } from '@/types';
 
-const Proxy = () => {
+const Tokestration = () => {
   const [proxyResponse, setProxyResponse] = useState<EchoResponse>();
   const [responseCollapsed, setResponseCollapsed] = useState<boolean>(true);
-  const [tokenCollapsed, setTokenCollapsed] = useState<boolean>(true);
-  const [paymentToken, setPaymentToken] = useState<Token>();
-
-  const handlePaymentSelect = async (checkout: Checkout) => {
-    const response = await axios.get<Token>(
-      `/api/tokens/${checkout.paymentToken}`
-    );
-
-    setPaymentToken(response.data);
-    setTokenCollapsed(false);
-  };
-
-  const handleProxySubmit = async (psp: string) => {
-    const { data } = await axios.post<EchoResponse>('/api/proxy', {
-      cardToken: paymentToken?.id,
-      psp,
-    });
-
-    setProxyResponse(data);
-    setTokenCollapsed(true);
-    setResponseCollapsed(false);
-  };
+  const [checkout, setCheckout] = useState<Checkout>();
 
   return (
     <Grid container direction="column" justifyContent="center" spacing={2}>
       <Grid item>
-        <DatabaseTable onPaymentSelect={handlePaymentSelect} />
+        <DatabaseTable onPaymentSelect={setCheckout} />
       </Grid>
       <Grid item>
-        <ProxyPanel
-          collapsed={tokenCollapsed}
-          onCollapse={setTokenCollapsed}
-          onSubmit={handleProxySubmit}
-          paymentToken={paymentToken}
-        />
+        <TokestrationPanel checkout={checkout} />
       </Grid>
       <Grid item>
         <Response
@@ -66,4 +41,4 @@ export const getServerSideProps = getServerSidePropsWithSession((_, session) =>
   })
 );
 
-export default Proxy;
+export default Tokestration;
