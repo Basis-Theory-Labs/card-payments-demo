@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import type { Token } from '@basis-theory/basis-theory-js/types/models';
-import { UniversalToken } from '@basis-theory/tokestration-node-sdk-poc/dist/interfaces/UniversalToken';
 import { Grid } from '@mui/material';
 import axios from 'axios';
 import { DatabaseTable } from '@/components/DatabaseTable';
@@ -21,13 +20,6 @@ const Tokestration = () => {
       </Grid>
       <Grid item>
         <TokestrationPanel checkout={checkout} />
-      </Grid>
-      <Grid item>
-        <Response
-          collapsed={responseCollapsed}
-          data={proxyResponse}
-          onCollapse={setResponseCollapsed}
-        />
       </Grid>
     </Grid>
   );
