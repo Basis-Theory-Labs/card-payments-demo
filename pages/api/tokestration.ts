@@ -37,6 +37,7 @@ const vendorAuth = {
     },
   },
 };
+const paymentService = new PaymentService(vendorAuth);
 
 const tokenize = async (
   paymentService: PaymentService,
@@ -72,8 +73,6 @@ const persistToken = (checkout: Checkout, universalToken: UniversalToken) => {
 const tokestrationApi = apiWithSession(async (req, res, session) => {
   let { operation, checkout, universalToken, psp } = req.body;
 
-  const paymentService = new PaymentService(vendorAuth);
-
   if (operation === 'tokenize') {
     universalToken = await tokenize(paymentService, psp, universalToken);
     persistToken(checkout, universalToken);
@@ -81,7 +80,12 @@ const tokestrationApi = apiWithSession(async (req, res, session) => {
   } else if (operation === 'authorize') {
     console.error('not implemented');
   } else if (operation === 'charge') {
-    const chargeResponse = await charge(paymentService, psp, universalToken, checkout);
+    const chargeResponse = await charge(
+      paymentService,
+      psp,
+      universalToken,
+      checkout
+    );
     console.log(JSON.stringify(chargeResponse, null, 2));
     res.status(200).json(chargeResponse);
   }
