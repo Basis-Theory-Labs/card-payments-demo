@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
+import { PaymentService } from '@basis-theory/tokestration-node-sdk-poc';
+import { ChargeResponse } from '@basis-theory/tokestration-node-sdk-poc/interfaces/Charge';
 import {
   UniversalToken,
   Provider,
 } from '@basis-theory/tokestration-node-sdk-poc/interfaces/UniversalToken';
-import { PaymentService } from '@basis-theory/tokestration-node-sdk-poc';
 import { LoadingButton } from '@mui/lab';
 import {
   Box,
@@ -18,7 +19,6 @@ import { PrismLight as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { CollapsableCard } from '@/components/CollapsableCard';
 import { prismTheme } from '@/components/prismTheme';
 import { Checkout } from '@/types';
-import { ChargeResponse } from '@basis-theory/tokestration-node-sdk-poc/interfaces/Charge';
 
 interface Props {
   checkout?: Checkout;
@@ -39,14 +39,18 @@ export const TokestrationPanel = ({ checkout }: Props) => {
     setBusy(true);
 
     try {
-      const { data } = await axios.post<UniversalToken | ChargeResponse>('/api/tokestration', {
-        operation,
-        checkout,
-        universalToken,
-        psp,
-      });
+      const { data } = await axios.post<UniversalToken | ChargeResponse>(
+        '/api/tokestration',
+        {
+          operation,
+          checkout,
+          universalToken,
+          psp,
+        }
+      );
       if (operation === 'charge') {
         setChargeResponse(data as ChargeResponse);
+        setUniversalToken(data.universalToken as UniversalToken);
       } else {
         setUniversalToken(data as UniversalToken);
       }
@@ -102,6 +106,7 @@ export const TokestrationPanel = ({ checkout }: Props) => {
                     <MenuItem value="braintree">{'Braintree'}</MenuItem>
                     <MenuItem value="stripe">{'Stripe'}</MenuItem>
                     <MenuItem value="checkout">{'Checkout'}</MenuItem>
+                    <MenuItem value="adyen">{'Adyen'}</MenuItem>
                   </Select>
                 </FormControl>
               </Box>
@@ -117,7 +122,6 @@ export const TokestrationPanel = ({ checkout }: Props) => {
               <LoadingButton
                 color="primary"
                 loading={busy}
-                disabled
                 onClick={() => submit('authorize')}
                 sx={{ mt: 2, ml: 2 }}
                 variant="contained"
@@ -127,7 +131,7 @@ export const TokestrationPanel = ({ checkout }: Props) => {
               <LoadingButton
                 color="primary"
                 loading={busy}
-                disabled={!canCharge}
+                // disabled={!canCharge}
                 onClick={() => submit('charge')}
                 sx={{ mt: 2, ml: 2 }}
                 variant="contained"
@@ -136,27 +140,26 @@ export const TokestrationPanel = ({ checkout }: Props) => {
               </LoadingButton>
             </>
           )}
-
-
-
         </CardContent>
       </CollapsableCard>
-      {chargeResponse && (<CollapsableCard
-        collapsed={!checkout}
-        // onCollapse={onCollapse}
-        title="Charge Response"
-      >
-        <CardContent>
-          <SyntaxHighlighter
-            customStyle={{ minHeight: '100%' }}
-            language="json"
-            showLineNumbers
-            style={prismTheme}
-          >
-            {JSON.stringify(chargeResponse, undefined, 2)}
-          </SyntaxHighlighter>
-        </CardContent>
-      </CollapsableCard>)}
+      {chargeResponse && (
+        <CollapsableCard
+          collapsed={!checkout}
+          // onCollapse={onCollapse}
+          title="Charge Response"
+        >
+          <CardContent>
+            <SyntaxHighlighter
+              customStyle={{ minHeight: '100%' }}
+              language="json"
+              showLineNumbers
+              style={prismTheme}
+            >
+              {JSON.stringify(chargeResponse, undefined, 2)}
+            </SyntaxHighlighter>
+          </CardContent>
+        </CollapsableCard>
+      )}
     </>
   );
 };

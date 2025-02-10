@@ -51,6 +51,18 @@ const tokenize = async (
   return universalToken;
 };
 
+const authorize = async (
+  paymentService: PaymentService,
+  psp: Provider,
+  universalToken: UniversalToken
+) => {
+  console.log('authorize', universalToken);
+  ({ universalToken } = await paymentService.authorize[psp]({
+    token: universalToken,
+  }));
+  return universalToken;
+};
+
 const charge = async (
   paymentService: PaymentService,
   psp: Provider,
@@ -78,7 +90,9 @@ const tokestrationApi = apiWithSession(async (req, res, session) => {
     persistToken(checkout, universalToken);
     res.status(201).json(universalToken);
   } else if (operation === 'authorize') {
-    console.error('not implemented');
+    universalToken = await authorize(paymentService, psp, universalToken);
+    persistToken(checkout, universalToken);
+    res.status(201).json(universalToken);
   } else if (operation === 'charge') {
     const chargeResponse = await charge(
       paymentService,
@@ -86,7 +100,9 @@ const tokestrationApi = apiWithSession(async (req, res, session) => {
       universalToken,
       checkout
     );
-    console.log(JSON.stringify(chargeResponse, null, 2));
+    if (chargeResponse?.universalToken) {
+      persistToken(checkout, chargeResponse?.universalToken);
+    }
     res.status(200).json(chargeResponse);
   }
 });

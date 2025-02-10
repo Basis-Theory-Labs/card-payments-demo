@@ -10,8 +10,8 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@basis-theory/basis-theory-js": "^1.59.0",
-    "@basis-theory/basis-theory-react": "^1.7.0",
+    "@basis-theory/basis-theory-js": "^4.15.0",
+    "@basis-theory/basis-theory-react": "^1.23.0",
     "@basis-theory/basis-theory-reactor-formulas-sdk-js": "^1.5.1",
     "@basis-theory/tokestration-node-sdk-poc": "link:../tokestration-node-sdk-poc/dist",
     "@emotion/react": "^11.9.3",

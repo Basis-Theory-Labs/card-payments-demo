@@ -1,22 +1,17 @@
 import React, { useState } from 'react';
 import {
-  Box,
   Card,
   CardContent,
-  Container,
-  Divider,
   FormControl,
   FormControlLabel,
   FormLabel,
   Grid,
   Radio,
   RadioGroup,
-  ThemeProvider,
 } from '@mui/material';
 import { ApplicationPanel } from '@/components/ApplicationPanel';
 import { DatabaseTable } from '@/components/DatabaseTable';
 import { FormWithElements } from '@/components/FormWithElements';
-import { yourApplication } from '@/components/theme';
 import type { AliasType } from '@/components/utils';
 import { getServerSidePropsWithSession } from '@/server/session';
 
