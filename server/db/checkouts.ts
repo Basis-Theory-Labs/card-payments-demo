@@ -54,6 +54,16 @@ const findCheckouts = (tenant: string, query: LokiQuery<Checkout> = {}) =>
 const updateCheckouts = (docs: Checkout | Checkout[]) =>
   checkouts().update(docs);
 
+const updatePaymentToken = (id: string, paymentToken: string) => {
+  checkouts().findAndUpdate(
+    (d) => d.id === id,
+    (doc) => ({
+      ...doc,
+      paymentToken,
+    })
+  );
+};
+
 const removeCheckouts = (tenant: string) => {
   checkouts().removeWhere({
     tenant: {
@@ -66,6 +76,7 @@ export {
   insertCheckout,
   findCheckouts,
   updateCheckouts,
+  updatePaymentToken,
   removeCheckouts,
   seedCheckouts,
 };

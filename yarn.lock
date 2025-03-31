@@ -389,12 +389,12 @@
     "@babel/helper-validator-identifier" "^7.18.6"
     to-fast-properties "^2.0.0"
 
-"@basis-theory/basis-theory-js@^1.55.0", "@basis-theory/basis-theory-js@^1.59.0":
-  version "1.59.0"
-  resolved "https://registry.yarnpkg.com/@basis-theory/basis-theory-js/-/basis-theory-js-1.59.0.tgz#fa5088318bc9ae19257ae98f4dd24328379ff908"
-  integrity sha512-FVEZ/bhy8SIeYgBaYA9Tw3Yi/9D1BXQo5fivHLAQ7LpFbQ2KvfdGTFnXOalO70BJfEAPAZQjTmhjO4uqdqtCqQ==
+"@basis-theory/basis-theory-js@^4.14.0", "@basis-theory/basis-theory-js@^4.15.0":
+  version "4.15.0"
+  resolved "https://registry.yarnpkg.com/@basis-theory/basis-theory-js/-/basis-theory-js-4.15.0.tgz#faeba460784fac4285c14c73f7b53446b94828c3"
+  integrity sha512-R4fPv3jsA2+I+Ajf/+qIVA06WKtob1DD78gtxdz6lv6r+mL/P/Tjv/71ZH9ZAgRQqU+zkiCoGWlBiSq/L0sUzA==
   dependencies:
-    axios "^0.21.2"
+    axios "^1.7.4"
     camelcase-keys "^6.2.2"
     csstype "^3.0.11"
     os "^0.1.2"
@@ -402,12 +402,17 @@
     snake-case "^3.0.4"
     snakecase-keys "^3.2.1"
 
-"@basis-theory/basis-theory-react@^1.7.0":
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/@basis-theory/basis-theory-react/-/basis-theory-react-1.7.0.tgz#58366b70bdb4f034900e9cafbd63162e7d58135d"
-  integrity sha512-XfgbV/J9jhUuM72gWsLZX88QYd9Tdkt0I+l/knW2FsC9ezDGj7w4Wy41VSolJRnffg4ijz/Y+gPt1lyDLPTn6g==
+"@basis-theory/basis-theory-react@^1.23.0":
+  version "1.23.0"
+  resolved "https://registry.yarnpkg.com/@basis-theory/basis-theory-react/-/basis-theory-react-1.23.0.tgz#cb81a902cb19ea4a211d54c6a4e7aad275568664"
+  integrity sha512-Cw3x+iimbH9hBKK7uGSTmyXwABj2ERInIZSWQUj9VvzeOeSLQM1Ksy9nBK4qduGsKnsJRRvyenwKMPTyzN1kmg==
   dependencies:
-    "@basis-theory/basis-theory-js" "^1.55.0"
+    "@basis-theory/basis-theory-js" "^4.14.0"
+
+"@basis-theory/basis-theory-reactor-formulas-sdk-js@^1.5.1":
+  version "1.5.1"
+  resolved "https://registry.yarnpkg.com/@basis-theory/basis-theory-reactor-formulas-sdk-js/-/basis-theory-reactor-formulas-sdk-js-1.5.1.tgz#750d3ca3e71b4b1c040ff243c5ff1e275c533e6b"
+  integrity sha512-RsLCPAB5TP/etE8anzERLgwn6UvKK8EF3UL470+HbUOdQP/SrhS9h7tqyP/e8WfexkJBKZVMnPwcwft5Ch+vyw==
 
 "@basis-theory/eslint-config@^1.0.13":
   version "1.0.13"
@@ -426,6 +431,10 @@
     eslint-import-resolver-typescript "^2.7.1"
     eslint-plugin-prettier "^4.0.0"
     read-pkg-up "^7.0.1"
+
+"@basis-theory/tokestration-node-sdk-poc@link:../tokestration-node-sdk-poc/dist":
+  version "0.0.0"
+  uid ""
 
 "@commitlint/cli@^17.0.3":
   version "17.3.0"
@@ -1208,10 +1217,10 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.5.tgz#5f19d2b85a98e9558036f6a3cacc8819420f05cf"
   integrity sha512-JCB8C6SnDoQf0cNycqd/35A7MjcnK+ZTqE7judS6o7utxUCg6imJg3QK2qzHKszlTjcj2cn+NwMB2i96ubpj7w==
 
-"@types/react-dom@18.0.6":
-  version "18.0.6"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.0.6.tgz#36652900024842b74607a17786b6662dd1e103a1"
-  integrity sha512-/5OFZgfIPSwy+YuIBP/FgJnQnsxhZhjjrnxudMddeblOouIodEQ75X14Rr4wGSG/bknL+Omy9iWlLo1u/9GzAA==
+"@types/react-dom@18.2.0":
+  version "18.2.0"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.2.0.tgz#374f28074bb117f56f58c4f3f71753bebb545156"
+  integrity sha512-8yQrvS6sMpSwIovhPOwfyNf2Wz6v/B62LFSVYQ85+Rq3tLsBIG7rP5geMxaijTUxSkrO6RzN/IRuIAADYQsleA==
   dependencies:
     "@types/react" "*"
 
@@ -1236,10 +1245,19 @@
   dependencies:
     "@types/react" "*"
 
-"@types/react@*", "@types/react@18.0.15":
+"@types/react@*":
   version "18.0.15"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-18.0.15.tgz#d355644c26832dc27f3e6cbf0c4f4603fc4ab7fe"
   integrity sha512-iz3BtLuIYH1uWdsv6wXYdhozhqj20oD4/Hk2DNXIn1kFsmp9x8d9QB6FnPhfkbhd2PgEONt9Q1x/ebkwjfFLow==
+  dependencies:
+    "@types/prop-types" "*"
+    "@types/scheduler" "*"
+    csstype "^3.0.2"
+
+"@types/react@18.2.0":
+  version "18.2.0"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.0.tgz#15cda145354accfc09a18d2f2305f9fc099ada21"
+  integrity sha512-0FLj93y5USLHdnhIhABk83rm8XEGA7kH3cr+YUlvxoUGp1xNt/DINUMvqPxLyOQMzLmZe8i4RTHbvb8MC7NmrA==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -1508,13 +1526,6 @@ axe-core@^4.4.3:
   resolved "https://registry.yarnpkg.com/axe-core/-/axe-core-4.4.3.tgz#11c74d23d5013c0fa5d183796729bc3482bd2f6f"
   integrity sha512-32+ub6kkdhhWick/UjvEwRchgoetXqTK14INLqbGm5U2TzBkBNF3nQtLYm8ovxSkQWArjEQvftCKryjZaATu3w==
 
-axios@^0.21.2:
-  version "0.21.4"
-  resolved "https://registry.yarnpkg.com/axios/-/axios-0.21.4.tgz#c67b90dc0568e5c1cf2b0b858c43ba28e2eda575"
-  integrity sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==
-  dependencies:
-    follow-redirects "^1.14.0"
-
 axios@^0.27.2:
   version "0.27.2"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.27.2.tgz#207658cc8621606e586c85db4b41a750e756d972"
@@ -1522,6 +1533,15 @@ axios@^0.27.2:
   dependencies:
     follow-redirects "^1.14.9"
     form-data "^4.0.0"
+
+axios@^1.7.4:
+  version "1.7.7"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-1.7.7.tgz#2f554296f9892a72ac8d8e4c5b79c14a91d0a47f"
+  integrity sha512-S4kL7XrjgBmvdGut0sN3yJxqYzrDOnivkBiN0OFs6hLiUam3UPvswUo0kqGyhqUZGEOytHyumEdXsAkgCOUf3Q==
+  dependencies:
+    follow-redirects "^1.15.6"
+    form-data "^4.0.0"
+    proxy-from-env "^1.1.0"
 
 axobject-query@^2.2.0:
   version "2.2.0"
@@ -2568,10 +2588,15 @@ flatted@^3.1.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.6.tgz#022e9218c637f9f3fc9c35ab9c9193f05add60b2"
   integrity sha512-0sQoMh9s0BYsm+12Huy/rkKxVu4R1+r96YX5cG44rHV0pQ6iC3Q+mkoMFaGWObMFYQxCVT+ssG1ksneA2MI9KQ==
 
-follow-redirects@^1.14.0, follow-redirects@^1.14.9:
+follow-redirects@^1.14.9:
   version "1.15.1"
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.1.tgz#0ca6a452306c9b276e4d3127483e29575e207ad5"
   integrity sha512-yLAMQs+k0b2m7cVxpS1VKJVvoz7SS9Td1zss3XRwXj+ZDH00RJgnuLx7E44wx02kQLrdM3aOOy+FpzS7+8OizA==
+
+follow-redirects@^1.15.6:
+  version "1.15.9"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.15.9.tgz#a604fa10e443bf98ca94228d9eebcc2e8a2c8ee1"
+  integrity sha512-gew4GsXizNgdoRyqmyfMHyAmXsZDk6mHkSxZFCzW9gwlbtOW44CDtYavM+y+72qD/Vq2l550kMF52DT8fOLJqQ==
 
 form-data@^4.0.0:
   version "4.0.0"
@@ -3872,6 +3897,11 @@ property-information@^5.0.0:
   integrity sha512-YUHSPk+A30YPv+0Qf8i9Mbfe/C0hdPXk1s1jPVToV8pk8BQtpw10ct89Eo7OWkutrwqvT0eicAxlOg3dOAu8JA==
   dependencies:
     xtend "^4.0.0"
+
+proxy-from-env@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/proxy-from-env/-/proxy-from-env-1.1.0.tgz#e102f16ca355424865755d2c9e8ea4f24d58c3e2"
+  integrity sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==
 
 pump@^3.0.0:
   version "3.0.0"

@@ -39,6 +39,10 @@ const routes: Route[] = [
     route: '/proxy',
     title: 'Proxy',
   },
+  {
+    route: '/tokestration',
+    title: 'Tokestration',
+  },
 ];
 
 interface CurrentRoutes {

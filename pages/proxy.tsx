@@ -6,7 +6,7 @@ import { DatabaseTable } from '@/components/DatabaseTable';
 import { ProxyPanel } from '@/components/ProxyPanel';
 import { Response } from '@/components/Response';
 import { getServerSidePropsWithSession } from '@/server/session';
-import type { EchoResponse } from '@/types';
+import type { Checkout, EchoResponse } from '@/types';
 
 const Proxy = () => {
   const [proxyResponse, setProxyResponse] = useState<EchoResponse>();
@@ -14,8 +14,10 @@ const Proxy = () => {
   const [tokenCollapsed, setTokenCollapsed] = useState<boolean>(true);
   const [paymentToken, setPaymentToken] = useState<Token>();
 
-  const handlePaymentSelect = async (tokenId: string) => {
-    const response = await axios.get<Token>(`/api/tokens/${tokenId}`);
+  const handlePaymentSelect = async (checkout: Checkout) => {
+    const response = await axios.get<Token>(
+      `/api/tokens/${checkout.paymentToken}`
+    );
 
     setPaymentToken(response.data);
     setTokenCollapsed(false);

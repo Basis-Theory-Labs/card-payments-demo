@@ -20,7 +20,7 @@ import { TableHeadPaper } from './TableHeadPaper';
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 interface Props {
-  onPaymentSelect?: (paymentToken: string) => unknown;
+  onPaymentSelect?: (checkout: Checkout) => unknown;
 }
 
 export const DatabaseTable = ({ onPaymentSelect }: Props) => {
@@ -73,23 +73,51 @@ export const DatabaseTable = ({ onPaymentSelect }: Props) => {
                       onPaymentSelect ? (
                         <Link
                           component="button"
-                          onClick={() => onPaymentSelect(checkout.paymentToken)}
+                          onClick={() => onPaymentSelect(checkout)}
                           underline="hover"
                         >
-                          <Typography variant="code">
+                          <Typography
+                            variant="code"
+                            sx={{
+                              wordBreak: 'break-all',
+                              maxWidth: '280px',
+                              textOverflow: 'ellipsis',
+                              whiteSpace: 'nowrap',
+                              display: 'block',
+                              overflowX: 'hidden',
+                            }}
+                          >
                             {checkout.paymentToken}
                           </Typography>
                         </Link>
                       ) : (
-                        <Typography color="warning.main" variant="code">
+                        <Typography
+                          color="warning.main"
+                          variant="code"
+                          sx={{
+                            wordBreak: 'break-all',
+                            maxWidth: '280px',
+                            textOverflow: 'ellipsis',
+                            whiteSpace: 'nowrap',
+                            display: 'block',
+                            overflowX: 'hidden',
+                          }}
+                        >
                           {checkout.paymentToken}
                         </Typography>
                       )
                     ) : (
                       <Typography
                         color="text.secondary"
-                        sx={{ wordBreak: 'break-all' }}
                         variant="code"
+                        sx={{
+                          wordBreak: 'break-all',
+                          maxWidth: '280px',
+                          textOverflow: 'ellipsis',
+                          whiteSpace: 'nowrap',
+                          display: 'block',
+                          overflowX: 'hidden',
+                        }}
                       >
                         {checkout.paymentToken}
                       </Typography>
